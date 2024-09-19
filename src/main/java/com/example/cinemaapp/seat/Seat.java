@@ -2,11 +2,15 @@ package com.example.cinemaapp.seat;
 
 import com.example.cinemaapp.room.Room;
 import com.example.cinemaapp.seatType.SeatType;
+import com.example.cinemaapp.ticket.Ticket;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -36,5 +40,9 @@ public class Seat {
     @ManyToOne
     @JoinColumn(name = "type_id")
     private SeatType type;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "seat")
+    List<Ticket> tickets;
 
 }

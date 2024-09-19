@@ -1,5 +1,8 @@
 package com.example.cinemaapp.film;
 
+import com.example.cinemaapp.projection.Projection;
+import com.example.cinemaapp.seat.Seat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -49,6 +53,10 @@ public class Film {
 
     @Column(name = "image_url")
     private String imageUrl;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "film")
+    List<Projection> projections;
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.cinemaapp.room;
 
 import com.example.cinemaapp.cinema.Cinema;
+import com.example.cinemaapp.projection.Projection;
 import com.example.cinemaapp.seat.Seat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -39,4 +40,8 @@ public class Room {
     @JsonIgnore
     @OneToMany(mappedBy = "room")
     List<Seat> seats;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "room")
+    List<Projection> projections;
 }
