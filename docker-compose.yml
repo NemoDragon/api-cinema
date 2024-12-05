@@ -7,10 +7,11 @@ services:
     ports:
       - "5999:5999"
     environment:
+      POSTGRES_DB: cinema
       POSTGRES_USER: user-name
       POSTGRES_PASSWORD: strong-password
     volumes:
       - local_pgdata:/var/lib/postgresql/data
-
+      - init.sql:/docker-entrypoint-initdb.d/init.sql
 volumes:
   local_pgdata:
