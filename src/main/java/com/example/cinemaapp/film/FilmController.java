@@ -73,6 +73,18 @@ public class FilmController {
         }
     }
 
+    @GetMapping("search/{query}")
+    public ResponseEntity<List<Film>> searchFilms(@PathVariable String query) {
+        List<Film> films = filmService.searchFilms(query);
+        return ResponseEntity.ok(films);
+    }
+
+    @GetMapping("sort/{query}/{key}")
+    public ResponseEntity<List<Film>> sortFilms(@PathVariable String query, @PathVariable String key) {
+        List<Film> filteredFilms = filmService.sortFilms(key, query);
+        return  ResponseEntity.ok(filteredFilms);
+    }
+
 
 
 

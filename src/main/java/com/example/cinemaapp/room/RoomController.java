@@ -1,5 +1,6 @@
 package com.example.cinemaapp.room;
 
+import com.example.cinemaapp.seat.Seat;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,4 +62,35 @@ public class RoomController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PatchMapping("/open/{id}")
+    public ResponseEntity<Room> openRoom(@PathVariable Integer id) {
+        try {
+            Room openedRoom = roomService.openRoom(id);
+            return  ResponseEntity.ok(openedRoom);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("/close/{id}")
+    public ResponseEntity<Room> closeRoom(@PathVariable Integer id) {
+        try {
+            Room closedRoom = roomService.closeRoom(id);
+            return  ResponseEntity.ok(closedRoom);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/board/{id}")
+    public ResponseEntity<List<Seat>> displayBoardRoom(@PathVariable Integer id) {
+        try {
+            List<Seat> seats = roomService.displayRoomBoard(id);
+            return  ResponseEntity.ok(seats);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

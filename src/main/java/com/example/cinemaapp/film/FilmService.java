@@ -4,8 +4,10 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 @Service
 @RequiredArgsConstructor
@@ -72,5 +74,26 @@ public class FilmService {
             throw new EntityNotFoundException();
         }
         filmRepository.deleteById(id);
+    }
+
+
+
+    public List<Film> sortFilms(String key, String query) {
+        List<Film> films = searchFilms(query);
+        return sortFilms(key, films);
+    }
+
+    private List<Film> sortFilms(String key, List<Film> films) {
+        return switch (key) {
+            case "title" -> films.stream().sorted(Comparator.comparing(Film::getTitle)).toList();
+            case "year" -> films.stream().sorted(Comparator.comparing(Film::getYear)).toList();
+            case "release_date" -> films.stream().sorted(Comparator.comparing(Film::getReleaseDate)).toList();
+            case "duration" -> films.stream().sorted(Comparator.comparing(Film::getDuration)).toList();
+            default -> films.stream().sorted(Comparator.comparing(Film::getId)).toList();
+        };
+    }
+
+    public List<Film> searchFilms(String query) {
+        return filmRepository.findAll().stream().filter(c -> c.getTitle().contains(query)).toList();
     }
 }

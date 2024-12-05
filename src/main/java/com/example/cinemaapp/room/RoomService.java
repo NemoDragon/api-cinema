@@ -1,5 +1,6 @@
 package com.example.cinemaapp.room;
 
+import com.example.cinemaapp.seat.Seat;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -53,5 +54,25 @@ public class RoomService {
         }
         roomRepository.deleteById(id);
     }
+
+    public Room openRoom(Integer id) {
+        Room foundRoom = roomRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        foundRoom.setIsOpen(true);
+        return roomRepository.save(foundRoom);
+    }
+
+
+    public Room closeRoom(Integer id) {
+        Room foundRoom = roomRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        foundRoom.setIsOpen(false);
+        return roomRepository.save(foundRoom);
+    }
+
+    public List<Seat> displayRoomBoard(Integer id) {
+        Room foundRoom = roomRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return foundRoom.getSeats();
+
+    }
+
 
 }

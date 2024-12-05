@@ -28,6 +28,9 @@ public class Cinema {
     @Column(name = "is_open")
     private Boolean isOpen;
 
+    @Column(name = "rating")
+    private String rating;
+
     @JsonIgnore
     @OneToMany(mappedBy = "cinema")
     List<Room> rooms;
