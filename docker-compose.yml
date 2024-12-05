@@ -1,17 +1,17 @@
-version: "3.8"
+version: '3'
+
 services:
   db:
     image: postgres
     container_name: local_pgdb
-    restart: always
     ports:
-      - "5999:5999"
+      - "10123:10123"
     environment:
-      POSTGRES_DB: cinema
-      POSTGRES_USER: user-name
-      POSTGRES_PASSWORD: strong-password
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     volumes:
       - local_pgdata:/var/lib/postgresql/data
-      - init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 volumes:
   local_pgdata:
