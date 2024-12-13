@@ -89,13 +89,22 @@ create table ticket
         references seat
 );
 
+delete from ticket;
+delete from projection;
+delete from seat;
+delete from room;
+delete from seat_type;
+delete from "user";
+delete from film;
+delete from cinema;
+
 insert into cinema (id, name, city, is_open, rating) values (1, 'CinemaYay', 'Kraków', true, '5 stars');
 insert into cinema (id, name, city, is_open, rating) values (2, 'HelloCinema', 'Kraków', true, 'great');
 insert into cinema (id, name, city, is_open, rating) values (3, '123Cinema', 'Warszawa', true, 'nice');
 
-insert into film (id, title, year, release_date, duration, age_category, genre, description, director, actors, image_url) values (111, 'Rogue One: A Star Wars Story', 2016, '2016-12-13', 133, 'PG-13', 'Action|Science fiction', 'Jyn''s father is forcibly taken by the Galactic Empire to help them complete the Death Star. When she grows up, she joins a group of resistance fighters who aim to steal the Empire''s blueprints.', 'Gareth Edwards', 'Felicity Jones|Diego Luna', 'https://images-cdn.ubuy.co.in/63ef0a397f1d781bea0a2464-star-wars-rogue-one-movie-poster.jpg');
-insert into film (id, title, year, release_date, duration, age_category, genre, description, director, actors, image_url) values (112, 'Interstellar', 2014, '2014-11-07', 169, 'PG-13', 'Science fiction|Adventure', 'When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.', 'Christopher Nolan', 'Matthew McConaughey|Jessica Chastain', 'https://www.ubuy.com.pl/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvODFrejA2b1NVZUwuX0FDX1NMMTUwMF8uanBn.jpg');
-insert into film (id, title, year, release_date, duration, age_category, genre, description, director, actors, image_url) values (113, 'Pulp Fiction', 1994, '1994-10-14', 169, 'R', 'Crime|Thriller', 'In the realm of underworld, a series of incidents intertwines the lives of two Los Angeles mobsters, a gangster''s wife, a boxer and two small-time criminals.', 'Quentin Tarantino', 'John Travolta|Uma Thurman', 'https://i5.walmartimages.com/seo/Pulp-Fiction-Movie-Poster-Regular-Mia-Wallace-On-Bed-Size-24-X-36_ce193b8f-4979-4dd4-89fb-cb5bda97b87b.47bd5508be83004cfd0b4ae1123a208e.jpeg');
+insert into film (id, title, year, release_date, duration, age_category, genre, description, director, actors, image_url) values (1, 'Rogue One: A Star Wars Story', 2016, '2016-12-13', 133, 'PG-13', 'Action|Science fiction', 'Jyn''s father is forcibly taken by the Galactic Empire to help them complete the Death Star. When she grows up, she joins a group of resistance fighters who aim to steal the Empire''s blueprints.', 'Gareth Edwards', 'Felicity Jones|Diego Luna', 'https://images-cdn.ubuy.co.in/63ef0a397f1d781bea0a2464-star-wars-rogue-one-movie-poster.jpg');
+insert into film (id, title, year, release_date, duration, age_category, genre, description, director, actors, image_url) values (2, 'Interstellar', 2014, '2014-11-07', 169, 'PG-13', 'Science fiction|Adventure', 'When Earth becomes uninhabitable in the future, a farmer and ex-NASA pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team of researchers, to find a new planet for humans.', 'Christopher Nolan', 'Matthew McConaughey|Jessica Chastain', 'https://www.ubuy.com.pl/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvODFrejA2b1NVZUwuX0FDX1NMMTUwMF8uanBn.jpg');
+insert into film (id, title, year, release_date, duration, age_category, genre, description, director, actors, image_url) values (3, 'Pulp Fiction', 1994, '1994-10-14', 169, 'R', 'Crime|Thriller', 'In the realm of underworld, a series of incidents intertwines the lives of two Los Angeles mobsters, a gangster''s wife, a boxer and two small-time criminals.', 'Quentin Tarantino', 'John Travolta|Uma Thurman', 'https://i5.walmartimages.com/seo/Pulp-Fiction-Movie-Poster-Regular-Mia-Wallace-On-Bed-Size-24-X-36_ce193b8f-4979-4dd4-89fb-cb5bda97b87b.47bd5508be83004cfd0b4ae1123a208e.jpeg');
 
 insert into "user" (id, username, password, email, telephone) values (1, 'sigma', 'sigma123', 'sigma@mail.com', '111-111-111');
 insert into "user" (id, username, password, email, telephone) values (2, 'skibidi', 'skibidi123', 'skibidi@mail.com', '444-444-444');
@@ -176,7 +185,7 @@ insert into projection (id, time, film_id, room_id) values (8, '2025-01-08 22:40
 insert into projection (id, time, film_id, room_id) values (9, '2025-01-08 11:40:37.000000', 1, 1);
 insert into projection (id, time, film_id, room_id) values (10, '2025-01-10 12:55:47.000000', 2, 2);
 insert into projection (id, time, film_id, room_id) values (11, '2025-01-10 16:12:11.000000', 3, 1);
-insert into projection (id, time, film_id, room_id) values (12, '2025-01-09 22:40:27.000000', 4, 3);
+insert into projection (id, time, film_id, room_id) values (12, '2025-01-09 22:40:27.000000', 1, 4);
 
 
 insert into ticket (id, user_id, projection_id, seat_id) values (1, 1, 1, 10);
