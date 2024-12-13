@@ -5,7 +5,7 @@ services:
     image: postgres
     container_name: local_pgdb
     ports:
-      - "10123:10123"
+      - "10123:5432"
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
