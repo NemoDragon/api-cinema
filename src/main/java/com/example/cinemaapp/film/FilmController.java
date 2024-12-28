@@ -8,6 +8,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.stream.Collectors;
+import com.example.cinemaapp.room.Room;
 
 import java.net.URI;
 import java.util.List;
@@ -26,6 +31,53 @@ public class FilmController {
         List<Film> films = filmService.getAllFilms();
         return ResponseEntity.ok(new FilmResponse(films));
     }
+
+    @GetMapping("/filtered")
+    public List<Film> getFilteredFilms(
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false) String title) {
+
+        return filmService.getAllFilms().stream()
+                .filter(film -> {
+                    if (city != null && !city.isEmpty()) {
+                        return film.getProjections().stream()
+                                .anyMatch(projection -> {
+                                    Room room = projection.getRoom();
+                                    return room != null &&
+                                            room.getCinema() != null &&
+                                            room.getCinema().getCity().equalsIgnoreCase(city);
+                                });
+                    }
+                    return true;
+                })
+                .filter(film -> {
+                    if (date != null && !date.isEmpty()) {
+                        try {
+                            LocalDate requestedDate = LocalDate.parse(date);
+                            return film.getProjections().stream()
+                                    .anyMatch(projection -> projection.getTime() != null &&
+                                            projection.getTime().toLocalDateTime().toLocalDate().equals(requestedDate));
+                        } catch (DateTimeParseException e) {
+                            System.err.println("Nieprawidłowy format daty: " + date);
+                            return false;
+                        }
+                    }
+                    return true;
+                })
+                .filter(film -> {
+                    if (title != null && !title.isEmpty()) {
+                        return film.getTitle() != null &&
+                                film.getTitle().toLowerCase().contains(title.toLowerCase());
+                    }
+                    return true;
+                })
+                .collect(Collectors.toList());
+    }
+
+
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Film> getFilmById(@PathVariable Integer id) {

@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/rooms")
 @RequiredArgsConstructor
+@CrossOrigin
 public class RoomController {
     @Autowired
     private final RoomService roomService;

@@ -15,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/projections")
 @RequiredArgsConstructor
+@CrossOrigin
 public class ProjectionController {
     @Autowired
     private ProjectionService projectionService;

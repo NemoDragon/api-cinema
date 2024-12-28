@@ -21,6 +21,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/cinemas")
 @RequiredArgsConstructor
+@CrossOrigin
 public class CinemaController {
     @Autowired
     private CinemaService cinemaService;
