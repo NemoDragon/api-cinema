@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +19,14 @@ public class ProjectionService {
 
     public Optional<Projection> getProjectionById(Integer id) {
         return projectionRepository.findById(id);
+    }
+
+    public List<Projection> getProjectionsByCinemaAndFilm(Integer cinemaId, Integer filmId) {
+        return projectionRepository.findAll().stream()
+                .filter(projection ->
+                        projection.getRoom().getCinema().getId().equals(cinemaId) &&
+                                projection.getFilm().getId().equals(filmId))
+                .collect(Collectors.toList());
     }
 
     public Integer addProjection(Projection projection) {

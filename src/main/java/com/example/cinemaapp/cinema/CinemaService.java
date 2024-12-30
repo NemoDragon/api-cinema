@@ -1,6 +1,7 @@
 package com.example.cinemaapp.cinema;
 
 import com.example.cinemaapp.projection.Projection;
+import com.example.cinemaapp.projection.ProjectionRepository;
 import com.example.cinemaapp.room.Room;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -10,11 +11,13 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CinemaService {
     private final CinemaRepository cinemaRepository;
+    private final ProjectionRepository projectionRepository;
 
     public List<Cinema> getAllCinemas() {
         return cinemaRepository.findAll();
@@ -24,6 +27,16 @@ public class CinemaService {
         return cinemaRepository.findById(id);
     }
 
+    public List<Cinema> getCinemasByFilmAndCity(Integer filmId, String city) {
+        List<Projection> projections = projectionRepository.findByFilmId(filmId);
+
+        return projections.stream()
+                .map(Projection::getRoom)
+                .map(Room::getCinema)
+                .filter(cinema -> city == null || cinema.getCity().equalsIgnoreCase(city))
+                .distinct()
+                .collect(Collectors.toList());
+    }
     public Integer addCinema(Cinema cinema) {
         Cinema savedCinema = Cinema.builder()
                 .id(cinema.getId())

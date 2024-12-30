@@ -32,6 +32,13 @@ public class ProjectionController {
         return projection.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/by-cinema-and-film")
+    public List<Projection> getProjectionsByCinemaAndFilm(
+            @RequestParam Integer cinemaId,
+            @RequestParam Integer filmId) {
+        return projectionService.getProjectionsByCinemaAndFilm(cinemaId, filmId);
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> addProjection(@RequestBody ProjectionRequest projectionRequest) {
         Integer id = projectionService.addProjection(projectionRequest.getProjection());

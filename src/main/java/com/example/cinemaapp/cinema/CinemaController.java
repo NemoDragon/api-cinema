@@ -38,6 +38,18 @@ public class CinemaController {
         return cinema.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/by-film/{filmId}")
+    public ResponseEntity<List<Cinema>> getCinemasByFilmAndCity(
+            @PathVariable Integer filmId,
+            @RequestParam(required = false) String city) {
+        try {
+            List<Cinema> cinemas = cinemaService.getCinemasByFilmAndCity(filmId, city);
+            return ResponseEntity.ok(cinemas);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> addCinema(@RequestBody CinemaRequest cinemaRequest) {
         Integer id = cinemaService.addCinema(cinemaRequest.getCinema());
