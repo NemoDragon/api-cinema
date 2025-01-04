@@ -10,14 +10,21 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/seats")
 @RequiredArgsConstructor
+@CrossOrigin
 public class SeatController {
     @Autowired
     private SeatService seatService;
+
+    @GetMapping("/by-projection/{projectionId}")
+    public ResponseEntity<List<Map<String, Object>>> getSeatsWithTypes(@PathVariable Integer projectionId) {
+        return ResponseEntity.ok(seatService.getSeatsWithTypes(projectionId));
+    }
 
     @GetMapping()
     public ResponseEntity<SeatResponse> getSeats() {
